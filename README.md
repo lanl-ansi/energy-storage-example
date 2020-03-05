@@ -8,3 +8,7 @@ This repository includes an example of how PowerModels can be used to solve a va
 * plot-model.r - generates plots comparing storage optimization models
 * plot-phase.r - generates plots comparing single-phase to multi-phase optimization models
 * plot-single.r - generates plots of data from a single model, used for debugging
+
+## License
+
+This code is provided under a BSD license as part of the Multi-Infrastructure Control and Optimization Toolkit (MICOT) project, LA-CC-13-108.
