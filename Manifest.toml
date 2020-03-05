@@ -150,9 +150,9 @@ version = "0.8.12"
 
 [[InfrastructureModels]]
 deps = ["JuMP", "Memento"]
-git-tree-sha1 = "3f2fae880e01320c76f8b4bbaff7b545d800cfcf"
+git-tree-sha1 = "d838b1b09ab7483a6ab39d0ed35102155e46ef70"
 uuid = "2030c09a-7f63-5d83-885d-db604e0e9cc0"
-version = "0.3.3"
+version = "0.4.1"
 
 [[IniFile]]
 deps = ["Test"]
@@ -196,6 +196,7 @@ version = "0.2.0"
 [[JuMP]]
 deps = ["Calculus", "DataStructures", "ForwardDiff", "LinearAlgebra", "MathOptInterface", "NaNMath", "Random", "SparseArrays", "Statistics"]
 git-tree-sha1 = "ba7f96010ed290d77d5c941c32e5df107ca688a4"
+pinned = true
 uuid = "4076af6c-e467-56ae-b986-b466b2749572"
 version = "0.20.1"
 
@@ -314,10 +315,15 @@ version = "0.5.3"
 
 [[PowerModels]]
 deps = ["InfrastructureModels", "JSON", "JuMP", "LinearAlgebra", "MathOptInterface", "Memento", "SparseArrays"]
-git-tree-sha1 = "73360d78a49ad443de14109b2687642a124647a5"
-pinned = true
+git-tree-sha1 = "12f99ecc94fc72b5891f90f59b3f2c456e8d996e"
 uuid = "c36e90e8-916a-50a6-bd94-075b64ef4655"
-version = "0.13.2"
+version = "0.15.2"
+
+[[PowerModelsDistribution]]
+deps = ["InfrastructureModels", "JSON", "JuMP", "LinearAlgebra", "MathOptInterface", "Memento", "PowerModels"]
+git-tree-sha1 = "1b4e4ed19abcdad89cdc229dd16d1e2a26992423"
+uuid = "d7431456-977f-11e9-2de3-97ff7677985e"
+version = "0.8.0"
 
 [[Printf]]
 deps = ["Unicode"]

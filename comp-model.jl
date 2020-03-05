@@ -29,15 +29,15 @@ for (n,network) in ns_mn_case["nw"]
 end
 ac_ns_mn_result = run_mn_opf(ns_mn_case, ACPPowerModel, with_optimizer(Ipopt.Optimizer, tol=1e-6))
 
-soc_mn_result = run_mn_strg_opf(mn_case, SOCWRPowerModel, with_optimizer(Gurobi.Optimizer, GRB_ENV))
-dc_mn_result = run_mn_strg_opf(mn_case, DCPPowerModel, with_optimizer(Gurobi.Optimizer, GRB_ENV))
+soc_mn_result = run_mn_opf_strg(mn_case, SOCWRPowerModel, with_optimizer(Gurobi.Optimizer, GRB_ENV))
+dc_mn_result = run_mn_opf_strg(mn_case, DCPPowerModel, with_optimizer(Gurobi.Optimizer, GRB_ENV))
 
 # seems to work
-ac_nl_mn_result = PowerModels._run_mn_mc_strg_opf(mn_case, ACPPowerModel, with_optimizer(Ipopt.Optimizer, tol=1e-4))
+ac_nl_mn_result = run_mn_opf_strg_nl(mn_case, ACPPowerModel, with_optimizer(Ipopt.Optimizer, tol=1e-4))
 println(ac_nl_mn_result["termination_status"])
 
 juniper = with_optimizer(Juniper.Optimizer, nl_solver=with_optimizer(Ipopt.Optimizer, tol=1e-4, print_level=0))
-ac_mn_result = run_mn_strg_opf(mn_case, ACPPowerModel, juniper)
+ac_mn_result = run_mn_opf_strg(mn_case, ACPPowerModel, juniper)
 #ac_mn_result = ac_nl_mn_result
 println(ac_mn_result["termination_status"])
 
