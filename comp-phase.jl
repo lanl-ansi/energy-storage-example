@@ -1,5 +1,5 @@
 using PowerModels
-using PowerModelsDistribution
+import PowerModelsDistribution
 using Ipopt
 using Gurobi
 using Juniper
@@ -13,7 +13,7 @@ case = parse_file("data/pglib_opf_case14_ieee_mod.m")
 
 #result = run_ac_opf(case, with_optimizer(Ipopt.Optimizer, tol=1e-6))
 
-make_multiconductor!(case, 3)
+PowerModelsDistribution.make_multiconductor!(case, 3)
 for (i,load) in case["load"]
     load["pd"] = [load["pd"][1]*0.36, load["pd"][2]*0.33, load["pd"][3]*0.31]
     load["qd"] = [load["qd"][1]*0.36, load["qd"][2]*0.33, load["qd"][3]*0.31]
