@@ -50,11 +50,11 @@ end
 ""
 function build_mn_opf_strg_nl(pm::AbstractPowerModel)
     for (n, network) in nws(pm)
-        variable_voltage(pm, nw=n)
-        variable_generation(pm, nw=n)
-        variable_storage(pm, nw=n)
-        variable_branch_flow(pm, nw=n)
-        variable_dcline_flow(pm, nw=n)
+        variable_bus_voltage(pm, nw=n)
+        variable_gen_power(pm, nw=n)
+        variable_storage_power(pm, nw=n)
+        variable_branch_power(pm, nw=n)
+        variable_dcline_power(pm, nw=n)
 
         constraint_model_voltage(pm, nw=n)
 
@@ -68,7 +68,7 @@ function build_mn_opf_strg_nl(pm::AbstractPowerModel)
 
         for i in ids(pm, :storage, nw=n)
             constraint_storage_complementarity_nl(pm, i, nw=n)
-            constraint_storage_loss(pm, i, nw=n)
+            constraint_storage_losses(pm, i, nw=n)
             constraint_storage_thermal_limit(pm, i, nw=n)
         end
 
