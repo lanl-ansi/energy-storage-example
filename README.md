@@ -9,6 +9,21 @@ This repository includes an example of how PowerModels and PowerModelsDistributi
 * plot-phase.r - generates plots comparing single-phase to multi-phase optimization models
 * plot-single.r - generates plots of data from a single model, used for debugging
 
+
+## Technical Report
+
+This example was developed to validate the storage model proposed in the following [publication](https://arxiv.org/abs/2004.14768) for use in [PowerModels.jl](https://lanl-ansi.github.io/PowerModels.jl/stable/storage/) and [PowerModelsDistribution.jl](https://github.com/lanl-ansi/PowerModelsDistribution.jl):
+```
+@misc{2004.14768,
+  author = {Frederik Geth and Carleton Coffrin and David M. Fobes},
+  title = {A Flexible Storage Model for Power Network Optimization},
+  month = {april},
+  year = {2020},
+  eprint = {arXiv:2004.14768},
+  url = {https://arxiv.org/abs/2004.14768}
+}
+```
+
 ## License
 
 This code is provided under a BSD license as part of the Multi-Infrastructure Control and Optimization Toolkit (MICOT) project, LA-CC-13-108.
