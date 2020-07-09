@@ -34,10 +34,10 @@ ns_mn_case = deepcopy(mn_case)
 for (n,network) in ns_mn_case["nw"]
     network["storage"] = Dict()
 end
-ac_ns_mn_result = PowerModelsDistribution._run_mn_mc_opf(ns_mn_case, ACPPowerModel, with_optimizer(Ipopt.Optimizer, tol=1e-6))
+ac_ns_mn_result = PowerModelsDistribution.run_mn_mc_opf(ns_mn_case, ACPPowerModel, optimizer_with_attributes(Ipopt.Optimizer, "tol"=>1e-6))
 
 
-ac_nl_mn_result = PowerModelsDistribution._run_mn_mc_opf_strg(mn_case, ACPPowerModel, with_optimizer(Ipopt.Optimizer, tol=1e-4))
+ac_nl_mn_result = PowerModelsDistribution.run_mn_mc_opf(mn_case, ACPPowerModel, optimizer_with_attributes(Ipopt.Optimizer, "tol"=>1e-6))
 println(ac_nl_mn_result["termination_status"])
 
 

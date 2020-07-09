@@ -6,12 +6,13 @@ using Juniper
 using CSV
 using DataFrames
 
+if !(@isdefined GRB_ENV)
+    const GRB_ENV = Gurobi.Env()
+end
+
 include("common.jl")
 
 case = parse_file("data/pglib_opf_case14_ieee_mod.m")
-
-#result = run_ac_opf(case, with_optimizer(Ipopt.Optimizer, tol=1e-6))
-const GRB_ENV = Gurobi.Env()
 
 mn_case = replicate(case, length(summer_wkdy_15min_scalar))
 for (i,scalar) in enumerate(summer_wkdy_15min_scalar)
@@ -27,16 +28,16 @@ ns_mn_case = deepcopy(mn_case)
 for (n,network) in ns_mn_case["nw"]
     network["storage"] = Dict()
 end
-ac_ns_mn_result = run_mn_opf(ns_mn_case, ACPPowerModel, with_optimizer(Ipopt.Optimizer, tol=1e-6))
+ac_ns_mn_result = run_mn_opf(ns_mn_case, ACPPowerModel, optimizer_with_attributes(Ipopt.Optimizer, "tol"=>1e-6))
 
-soc_mn_result = run_mn_opf_strg(mn_case, SOCWRPowerModel, with_optimizer(Gurobi.Optimizer, GRB_ENV))
-dc_mn_result = run_mn_opf_strg(mn_case, DCPPowerModel, with_optimizer(Gurobi.Optimizer, GRB_ENV))
+soc_mn_result = run_mn_opf_strg(mn_case, SOCWRPowerModel, () -> Gurobi.Optimizer(GRB_ENV))
+dc_mn_result = run_mn_opf_strg(mn_case, DCPPowerModel, () -> Gurobi.Optimizer(GRB_ENV))
 
 # seems to work
-ac_nl_mn_result = run_mn_opf_strg_nl(mn_case, ACPPowerModel, with_optimizer(Ipopt.Optimizer, tol=1e-4))
+ac_nl_mn_result = run_mn_opf_strg_nl(mn_case, ACPPowerModel, optimizer_with_attributes(Ipopt.Optimizer, "tol"=>1e-4))
 println(ac_nl_mn_result["termination_status"])
 
-juniper = with_optimizer(Juniper.Optimizer, nl_solver=with_optimizer(Ipopt.Optimizer, tol=1e-4, print_level=0))
+juniper = optimizer_with_attributes(Juniper.Optimizer, "nl_solver"=>optimizer_with_attributes(Ipopt.Optimizer, "tol"=>1e-4, "print_level"=>0))
 ac_mn_result = run_mn_opf_strg(mn_case, ACPPowerModel, juniper)
 #ac_mn_result = ac_nl_mn_result
 println(ac_mn_result["termination_status"])
