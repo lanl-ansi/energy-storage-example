@@ -6,12 +6,13 @@ using Juniper
 using CSV
 using DataFrames
 
+if !(@isdefined GRB_ENV)
+    const GRB_ENV = Gurobi.Env()
+end
+
 include("common.jl")
 
 case = parse_file("data/pglib_opf_case14_ieee_mod.m")
-
-#result = run_ac_opf(case, with_optimizer(Ipopt.Optimizer, tol=1e-6))
-const GRB_ENV = Gurobi.Env()
 
 mn_case = replicate(case, length(summer_wkdy_15min_scalar))
 for (i,scalar) in enumerate(summer_wkdy_15min_scalar)
